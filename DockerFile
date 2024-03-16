@@ -1,0 +1,11 @@
+FROM maven AS Build
+WORKDIR /app/user
+COPY . .
+RUN mvn clean package
+FROM adoptopenjdk/maven-openjdk11
+WORKDIR /app
+COPY --frombuild /app/user/target/microservice-Inventory-Service-EcomApp-Spring-Angular-Keycloack-TP*.jar app.jar
+ENTRYPOINT ["java","-jar","app.jar"]
+
+
+
